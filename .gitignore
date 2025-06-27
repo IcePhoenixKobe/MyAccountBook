@@ -1,0 +1,53 @@
+# Build 結果
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+net9.0/
+
+# 使用者設定檔
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS 設定
+.vscode/
+.vs/
+
+# 測試結果
+TestResults/
+*.coverage
+*.coveragexml
+
+# NuGet 套件
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# 發佈設定
+*.publish.xml
+*.pubxml
+*.publishproj
+
+# Azure 發佈腳本
+PublishScripts/
+
+# 其他暫存檔案
+*.tmp
+*.log
+*.pidb
+*.svclog
+*.cache
+*.dbmdl
+
+# ReSharper、NCrunch 等工具
+_ReSharper*/
+*.DotSettings.user
+_NCrunch_*
+nCrunchTemp_*
+
+# Windows 特有
+Thumbs.db
+ehthumbs.db
+Desktop.ini

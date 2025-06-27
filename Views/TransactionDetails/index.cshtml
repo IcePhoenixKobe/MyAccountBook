@@ -1,0 +1,51 @@
+@{
+    ViewData["Title"] = "收支明細";
+}
+
+<div class="text-center">
+    <h1 class="display-4">這邊是收支明細</h1>
+    <button class="btn btn-primary mb-3" id="loadDataBtn">取得收支項目</button>
+    <table>
+        <thead>
+            <tr>
+                <th>日期</th>
+                <th>類別</th>
+                <th>項目</th>
+                <th>金額</th>
+                <th>備註</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+            <script>
+                document.getElementById("loadDataBtn").addEventListener("click", function () {
+                    $.ajax({
+                        url: '@Url.Action("GetTransactions", "TransactionDetails")',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            var tbody = document.querySelector("tbody");
+                            tbody.innerHTML = ""; // 清空現有的表格內容
+                            data.forEach(function (item) {
+                                var row = document.createElement("tr");
+                                row.innerHTML = `
+                                    <th scope="row">${new Date(item.date).toLocaleDateString()}</th>
+                                    <td>${item.category}</td>
+                                    <td>${item.item}</td>
+                                    <td>${item.amount.toLocaleString('zh-TW', { style: 'currency', currency: 'TWD' })}</td>
+                                    <td>${item.note}</td>
+                                `;
+                                tbody.appendChild(row);
+                            });
+                        },
+                        error: function () {
+                            alert("無法取得收支項目資料。");
+                        }
+                    });
+                });
+            </script>
+            }
