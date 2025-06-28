@@ -42,4 +42,27 @@ public class TransactionDetailsController : Controller
             return StatusCode(500, "Internal server error");
         }
     }
+
+    [HttpPost]
+    public async Task<IActionResult> AddTransaction([FromForm] TransactionDetails model)
+    {
+        try
+        {
+            if (model == null)
+            {
+                return BadRequest("Transaction details cannot be null");
+            }
+            else if (string.IsNullOrEmpty(model.Note))
+            {
+                model.Note = ""; // Default to empty string if note is not provided
+            }
+            await _accountBookService.AddTransactionAsync(model);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error adding transaction");
+            return StatusCode(500, "Internal server error");
+        }
+    }
 }
